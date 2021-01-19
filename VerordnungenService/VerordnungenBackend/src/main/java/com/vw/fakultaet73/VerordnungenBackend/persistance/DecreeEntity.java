@@ -2,6 +2,7 @@ package com.vw.fakultaet73.VerordnungenBackend.persistance;
 
 import org.springframework.data.annotation.Id;
 
+
 public class DecreeEntity {
 
     @Id
