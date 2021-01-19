@@ -1,0 +1,16 @@
+package com.vw.fakultaet73.VerordnungenImportService.VerordnungenImportService.Controller;
+
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
+
+@Component
+public class ImportSchedulerService {
+
+
+		@Scheduled(fixedRate = 5000)
+		public void reportCurrentTime() {
+			System.out.println("asdasad");
+	
+	}
+
+}

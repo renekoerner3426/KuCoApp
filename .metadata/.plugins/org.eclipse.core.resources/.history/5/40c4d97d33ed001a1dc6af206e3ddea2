@@ -1,0 +1,51 @@
+package com.vw.fakultaet73.VerordnungenImportService.VerordnungenImportService.Controller;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.annotation.PostConstruct;
+import javax.xml.ws.Response;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.vw.fakultaet73.VerordnungenImportService.VerordnungenImportService.entitites.DecreeEntity;
+import com.vw.fakultaet73.VerordnungenImportService.VerordnungenImportService.services.ImportService;
+
+
+@RestController
+public class ReceiveData {
+	
+	@Autowired
+	private ImportService importService;
+	
+	private final String GET_URL = "http://localhost:8080/decrees";
+	private List<String> dataList = new ArrayList<>();
+	private String response;
+	
+	
+	@GetMapping("/maches")
+	public void saveList() {
+		getAlldecrees();
+	}
+	
+	public List<DecreeEntity> getAlldecrees(){   
+		RestTemplate rt = new RestTemplate();   
+		ResponseEntity<String> respose = rt.getForEntity(this.GET_URL, String.class);  
+		List<DecreeEntity> myList = new Gson().fromJson(respose.getBody(), new TypeToken<List<DecreeEntity>>(){}.getType());         
+		this.importService.saveDecrees(myList);   
+		return myList; 
+		}
+}

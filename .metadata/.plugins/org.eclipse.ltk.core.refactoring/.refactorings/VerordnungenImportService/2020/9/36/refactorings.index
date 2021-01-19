@@ -1,0 +1,13 @@
+1599050162576	Delete element
+1599050752738	Delete element
+1599052139101	Move compilation units
+1599052144184	Delete element
+1599052169111	Move compilation unit
+1599052174099	Delete element
+1599059595233	Delete element
+1599059604269	Delete element
+1599064494376	Delete element
+1599073508079	Extract method 'createDecreeEntity'
+1599073670435	Extract method 'seperateData'
+1599073703074	Rename local variable 'test'
+1599073833225	Rename method 'createDecreeEntity'

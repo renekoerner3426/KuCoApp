@@ -1,0 +1,8 @@
+package com.vw.fakultaet73.VerordnungenImportService.VerordnungenImportService.entitites;
+
+import javax.persistence.Entity;
+
+@Entity
+public class StateEntity {
+
+}

@@ -1,0 +1,27 @@
+package com.vw.fakultaet73.VerordnungenBackend.persistance.controller.rest;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.vw.fakultaet73.VerordnungenBackend.persistance.DecreeEntity;
+
+@RestController
+public class DecreeController {
+	// TODO: for test without docker
+	@CrossOrigin(origins = "http://localhost:4200")
+	@GetMapping("/decrees")
+	public List<DecreeEntity> getDecrees() {
+		List<DecreeEntity> decreeEntityList = new ArrayList<>();
+		decreeEntityList.add(new DecreeEntity(1, "hier steht eine verordnung", 2, "haus"));
+		decreeEntityList.add(new DecreeEntity(2, "asdasdasdad", 1, ""));
+		decreeEntityList.add(new DecreeEntity(3, "asafdrgrzuuituti", 1, "zeppelin, hochhaus"));
+		decreeEntityList.add(new DecreeEntity(4, "uioopiopiopiopiopio", 1, "haus"));
+		decreeEntityList.add(new DecreeEntity(5, "bvcvbcncvnbvnnb", 1, "treppenlift"));
+		return decreeEntityList;
+	}
+
+}

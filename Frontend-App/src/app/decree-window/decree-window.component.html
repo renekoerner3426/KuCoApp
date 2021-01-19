@@ -1,0 +1,89 @@
+<body>
+    <!-- Header -->
+    <div class="header">
+        <h1><a routerLink="../login" class="loginlink">Corona Verordnungen</a></h1>
+        <p>Für<b> jedes</b> Bundesland</p>
+    </div>
+    <!-- Popup-->
+
+    <div *ngIf="eventPopupVisible" class="eventPopupWindow">
+        <div class="eventPopupContent">
+            <h3>Eventplanung</h3>
+            <div class="fieldDiv">
+                <div class="stateDiv">
+                    <p class="eventP">Bundesland</p>
+                    <select [(ngModel)]="selectedEventState">
+                        <option  *ngFor="let state of states">{{state}}</option>
+                    </select>
+                </div>
+                <div class="personDiv">
+                    <p class="eventP">Personenanzahl:</p>
+                    <input [(ngModel)]="persons" type="number" min="0" placeholder="20" name="persons">
+                </div>
+                <div class="areaDiv">
+                    <p class="eventP">Fläche:</p>
+                    <input [(ngModel)]="area" type="number" min="0" placeholder="50" name="area"> m²
+                </div>
+                <div class="insideOutsideDiv">
+                    <p class="eventP">Außenveranstaltung:</p>
+                    <input class="outsideCheckbox" [(ngModel)]="isOutside" type="checkbox" name="outside">
+                </div>
+                <button class="calculateButton" (click)="calculate()">Berechnen</button>
+                <p class="homes">{{maxHomesString}}</p>
+                <p class="closed">{{closedFacilities}}</p>
+                <div *ngIf="correctPeople; else elseBlock">
+                    <p class="allowedText" *ngIf="correctPeoplePerArea; else elseBlock">Veranstaltung darf stattfinden</p>
+                </div>
+                <ng-template #elseBlock>
+                    <p class="notAllowedText">Veranstaltungen darf nicht stattfinden</p>
+                </ng-template>
+            </div>
+            <div class="doneButtonDiv">
+                <button class="doneButton" (click)="closeEventPopup()">Fertig</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation Bar -->
+    <nav>
+        <h1>Bundesland auswählen: </h1>
+        <select class="dropDown" [(ngModel)]="selectedState" (change)="searchByState()">
+            <option  *ngFor="let state of states">{{state}}</option>
+        </select>
+        <div id="searchfield">
+            <input [(ngModel)]="searchWords" type="text" placeholder="Search.." name="search">
+            <button (click)="searchByRegulations()">🔎</button>
+        </div>
+        <button class="eventButton" (click)="openEventPopup()">Eventplaner</button>
+    </nav>
+
+    <!-- Content -->
+    <div class="mainContent">
+        <p *ngIf="databaseResponse" class="failed">Keine Verbindung zur Datenbank</p>
+        <h2>Verordnungen für: {{selectedState}}</h2>
+        <div *ngIf="selectedDecreesByStateFiltered.length > 0; else elseBlock">
+            <table>
+                <tr>
+                    <th *ngIf="allStatesVisible">Bundesland</th>
+                    <th>Beschreibung</th>
+                    <th>Einschränkungen</th>
+                </tr>
+                <tr *ngFor="let decree of selectedDecreesByStateFiltered">
+                    <td *ngIf="allStatesVisible">{{decree.state}}</td>
+                    <td>{{ decree.description }}</td>
+                    <td>{{ decree.regulations }}</td>
+                </tr>
+            </table>
+        </div>
+        <ng-template class="noDataTemplate" #elseBlock>
+            <div class="noDataText">
+                Ooops! Es konnten keine Verordnungen gefunden werden...
+            </div>
+        </ng-template>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        Java-Fullstack-Prüfung: René Körner und Chris Frömling
+    </footer>
+</body>

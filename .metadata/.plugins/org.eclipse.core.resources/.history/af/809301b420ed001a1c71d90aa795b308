@@ -1,0 +1,20 @@
+package com.vw.fakultaet73.VerordnungenImportService.VerordnungenImportService;
+
+import java.io.IOException;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.vw.fakultaet73.VerordnungenImportService.VerordnungenImportService.Controller.ReceiveData;
+
+@SpringBootApplication
+@RestController
+public class VerordnungenImportServiceApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(VerordnungenImportServiceApplication.class, args);
+		ReceiveData receiveData = new ReceiveData();
+		receiveData.saveList();
+	}
+}

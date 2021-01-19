@@ -1,0 +1,8 @@
+package com.vw.fakultaet73.VerordnungenImportService.repositoeries;
+
+import org.springframework.data.repository.CrudRepository;
+
+import com.vw.fakultaet73.VerordnungenImportService.VerordnungenImportService.entitites.StateEntity;
+
+public interface StateEntityRepository extends CrudRepository<StateEntity, Long> {
+}

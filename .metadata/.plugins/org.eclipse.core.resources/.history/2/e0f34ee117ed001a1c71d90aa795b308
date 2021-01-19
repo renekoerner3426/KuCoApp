@@ -1,0 +1,11 @@
+package com.vw.fakultaet73.VerordnungenImportService.VerordnungenImportService.entitites;
+
+import javax.persistence.Entity;
+
+import lombok.Data;
+
+@Entity
+@Data
+public class StateEntity {
+
+}

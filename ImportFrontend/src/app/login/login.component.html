@@ -1,0 +1,7 @@
+<!-- Login -->
+<div id="login">
+    <input type="text" placeholder="Benutzername" [(ngModel)]="userName" (change)="checkData()">
+    <input type="password" placeholder="Password" [(ngModel)]="userPassword" (change)="checkData()">
+    <button (click)="login()" class="loginButton"><a [routerLink]="correctData ? '/overview' : null">Login</a></button>
+</div>
+<p *ngIf="warningVisible">Falsche Login Daten</p>

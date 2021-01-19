@@ -1,0 +1,38 @@
+#login {
+    display: flex;
+    justify-content: center;
+    max-width: 100%;
+}
+
+p {
+    color: red;
+}
+
+a {
+    text-decoration: none;
+}
+
+#login input {
+    height: 50px;
+    font-size: 24px;
+}
+
+button {
+    background-color: #14b922;
+    font-weight: bold;
+}
+
+.loginButton {
+    height: 56px;
+    min-width: 100px;
+    font-size: 24px;
+}
+
+@media only screen and (max-width: 950px) {
+    #login {
+        display: block;
+    }
+    .loginButton {
+        min-width: 300px !important;
+    }
+}

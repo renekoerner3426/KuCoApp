@@ -1,0 +1,44 @@
+package com.vw.fakultaet73.VerordnungenBackend.persistance.controller.rest;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.vw.fakultaet73.VerordnungenBackend.persistance.DecreeEntity;
+import com.vw.fakultaet73.VerordnungenBackend.service.DecreeService;
+
+@RestController
+public class DecreeController {
+	
+	@Autowired
+	private DecreeService decreeService;
+	
+	// TODO: for test without docker
+	@CrossOrigin(origins = "http://localhost:4200")
+	@ResponseStatus(HttpStatus.OK)
+	@GetMapping("/decrees")
+	public List<DecreeEntity> getDecrees() {
+		List<DecreeEntity> decreeEntityList = new ArrayList<>();
+		decreeEntityList.add(new DecreeEntity(1, "hier steht eine verordnung","Niedersachsen", "haus"));
+		decreeEntityList.add(new DecreeEntity(2, "asdasdasdad", "Niedersachsen", ""));
+		decreeEntityList.add(new DecreeEntity(3, "asafdrgrzuuituti", "Niedersachsen", "fußball draußen"));
+		decreeEntityList.add(new DecreeEntity(5, "bvcvbcncvnbvnnb", "Niedersachsen", "fußball"));
+		decreeEntityList.add(new DecreeEntity(4, "uioopiopiopiopiopio", "Bayern", "haus"));
+		decreeEntityList.add(new DecreeEntity(5, "bvcvbcncvnbvnnb", "Berlin", "fußball"));
+		return decreeEntityList;
+	}
+	
+	/**
+	@GetMapping("/decrees")
+	public List<DecreeEntity> getDecrees() {
+		return decreeService.getDecreeList();
+	}
+*/
+	
+}

@@ -1,0 +1,103 @@
+<!--  Verordnungen edit -->
+<div *ngIf="popupVisible" class="popupWindow">
+    <div class="popupContent">
+        <h3>Bearbeitung der Verordnung für {{editingState}}</h3>
+        <div class="editFieldsDiv">
+            <div>
+                <h5>Beschreibung:</h5>
+                <input class="uploadInput" type="text" [(ngModel)]="editingDescription">
+            </div>
+            <div class="regulationDiv">
+                <h5>Einschränkungen:</h5>
+                <input class="uploadInput" type="text" [(ngModel)]="editingRegulations">
+            </div>
+            <div class="submitEditingButtonDiv">
+                <button (click)="updateDecree()">Fertig</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="importPopupVisible" class="importPopupWindow">
+    <div class="importPopupContent">
+        <h3>Datenimport</h3>
+        <div class="uploadDiv">
+            <select [(ngModel)]="selectedUploadState">
+                <option *ngFor="let state of states">{{state}}</option> 
+            </select>
+            <button class="importButton" (click)="filteredImport()">Import je Bundesland</button>
+            <button class="importButton" (click)="basicImport()">Import aller Bundesländer</button>
+        </div>
+        <button (click)="closeImportPopup()">Fertig</button>
+    </div>
+</div>
+
+<!-- Main Content -->
+<div class="window">
+    <div class="welcomeDiv">
+        <p>Willkommen im Bereitstellungsmenü für Corona-Verordnungen! Sie können neue Verordnungen ganz einfach über diese Seite erstellen.</p>
+        <div>
+            <button (click)="openImportPopup()">Import</button>
+            <p *ngIf="failedImport" class="failed">Import fehlgeschlagen</p>
+            <p *ngIf="successfullImport" class="successfull">Import erfolgreich</p>
+        </div>
+    </div>
+
+    <!-- Verordnungen add -->
+    <div class="tableDiv">
+        <div class="entryFieldsDiv">
+            <div>
+                Bundesland:
+                <select [(ngModel)]="selectedState" (change)="searchByState(selectedState)">
+                    <option *ngFor="let state of states">{{state}}</option> 
+                </select>
+            </div>
+            <div>
+                Beschreibung:
+                <input class="uploadInput" type="text" placeholder="z.B.: Mindestabstand 3m" [(ngModel)]="descriptionDecree">
+            </div>
+            <div class="regulationDiv">
+                Einschränkungen:
+                <input class="uploadInput" type="text" placeholder="z.B.: Fußball draußen" [(ngModel)]="regulationsDecree">
+            </div>
+
+            <button class="newDecreeButton" (click)="addDecree()">neue Verordnung</button>
+            <p *ngIf="missingValues" class="failed">Bitte Bundesland auswählen und eine Beschreibung hinzufügen.</p>
+            <p *ngIf="addingWasOk" class="successfull">Neuer Eintrag hinzugefügt.</p>
+            <p *ngIf="addingWasfalse" class="failed">Eintrag konnte nicht in Datenbank gespeichert werden.</p>
+            <p *ngIf="existing" class="failed">Verordnung bereits vorhanden.</p>
+        </div>
+
+        <div *ngIf="showLastChange" class="dateDiv">Letzer Import: {{lastUploadDate}}</div>
+
+        <!-- Verordnungen table -->
+        <div *ngIf="selectedDecreesByStateFiltered.length > 0; else elseBlock">
+            <h2>Verordnungen für: {{selectedState}}</h2>
+            <p *ngIf="updateDecreeFailed" class="failed">Änderung in Datenbank fehlgeschlagen</p>
+            <p *ngIf="deleteFailed" class="failed">Löschen aus der Datenbank fehlgeschlagen</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th *ngIf="allStatesVisible">Bundesland</th>
+                        <th>Beschreibung</th>
+                        <th>Einschränkungen</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let decree of selectedDecreesByStateFiltered; index as index">
+                        <td *ngIf="allStatesVisible">{{decree.state}}</td>
+                        <td>{{ decree.description }}</td>
+                        <td>{{ decree.regulations }}</td>
+                        <td class="buttonColumn">
+                            <button class="editButton" (click)="openDecreeEditor(decree)">edit</button>
+                            <button class="deleteButton" (click)="deleteDecree(decree)">delete</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <ng-template #elseBlock>
+        <p class="noDataText">Ooops! Es konnten keine Verordnungen gefunden werden...</p>
+    </ng-template>
+</div>

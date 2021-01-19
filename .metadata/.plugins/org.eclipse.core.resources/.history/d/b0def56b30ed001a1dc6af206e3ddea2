@@ -1,0 +1,64 @@
+package com.vw.fakultaet73.VerordnungenImportService.VerordnungenImportService.Controller;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.GenericType;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.vw.fakultaet73.VerordnungenImportService.VerordnungenImportService.entitites.DecreeEntity;
+import com.vw.fakultaet73.VerordnungenImportService.VerordnungenImportService.services.ImportService;
+
+
+@RestController
+public class ReceiveData {
+	
+	@Autowired
+	private ImportService importService;
+	
+	private final String GET_URL = "http://localhost:8080";
+	
+	public void getData() {
+		System.err.println("a");
+	final Client client = ClientBuilder.newClient();
+	System.err.println("b");
+	final WebTarget target = client.target(GET_URL)
+			.path("/decrees");
+	System.err.println(0);
+	final Response response = target.request(
+			MediaType.APPLICATION_JSON_TYPE)
+			.get();
+	System.err.println(1);
+	// oder im Falle einer Liste
+	final List<DecreeEntity> dataList = response.readEntity(
+			new GenericType<List<DecreeEntity>>() {});
+	System.err.println(2);
+
+		System.out.println(dataList);
+	}
+	
+	private List<DecreeEntity> getList() {
+		List<DecreeEntity> decrees = new ArrayList<>();
+//		for (String string : dataList) {
+//			String[] temporaryData = string.split(",");
+//			decrees.add(new DecreeEntity(new StateEntity(), temporaryData[0], temporaryData[2]));
+//		}
+		System.out.println(decrees);
+		return decrees;
+	}
+	
+	@GetMapping("/maches")
+	public void saveList() {
+		getData();
+		this.importService.saveDecrees(getList());
+	}
+}

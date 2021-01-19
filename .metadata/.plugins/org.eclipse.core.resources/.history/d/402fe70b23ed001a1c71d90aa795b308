@@ -1,0 +1,5 @@
+package com.vw.fakultaet73.VerordnungenImportService.VerordnungenImportService.Controller;
+
+public class ImportSchedulerService {
+
+}

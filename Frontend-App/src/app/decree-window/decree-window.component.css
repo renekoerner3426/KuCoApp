@@ -1,0 +1,231 @@
+/* Header/logo Title */
+
+.header {
+    padding: 10px;
+    text-align: center;
+    background: #0d4671;
+    color: white;
+}
+
+.mainContent {
+    text-align: center;
+    min-height: 500px;
+}
+
+.loginlink {
+    color: white;
+    text-decoration: none;
+}
+
+.noDataText {
+    text-align: center;
+    font-weight: bold;
+    margin-top: 60px !important;
+}
+
+.noDataTemplate {
+    vertical-align: bottom;
+}
+
+
+/* Style the top navigation bar */
+
+nav {
+    display: flex;
+    background-color: #333;
+}
+
+
+/* Style the navigation bar header */
+
+nav h1 {
+    color: white;
+    padding: 14px 20px;
+    text-decoration: none;
+    text-align: center;
+}
+
+
+/* Style the navigation bar dropDown */
+
+nav select {
+    width: 15%;
+    font-size: 30px;
+    background-color: rgb(94, 94, 94);
+    color: white;
+}
+
+
+/* Style the searchfield */
+
+#searchfield {
+    margin-top: 35px;
+    box-sizing: border-box;
+}
+
+#searchfield input[type=text] {
+    padding: 10px;
+    font-size: 17px;
+    border: 1px solid grey;
+    float: left;
+    width: 70%;
+    height: 20px;
+    background: #f1f1f1;
+}
+
+#searchfield button {
+    float: left;
+    width: 20%;
+    padding: 9px;
+    background: #2196F3;
+    color: white;
+    font-size: 17px;
+    border: 1px solid grey;
+    border-left: none;
+    cursor: pointer;
+    max-height: 40px !important;
+}
+
+#searchfield button:hover {
+    background: #0b7dda;
+}
+
+
+/* Style the body */
+
+body {
+    font-family: Arial;
+    margin: 0;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    background: #d9d9d9;
+}
+
+p {
+    padding-bottom: 10px;
+}
+
+
+/* Footer */
+
+footer {
+    padding: 20px;
+    text-align: center;
+    background: #333;
+}
+
+.dropDown {
+    margin-top: 35px;
+    max-height: 40px !important;
+    min-width: 100px;
+    margin-right: 20px;
+}
+
+.eventPopupWindow {
+    position: fixed;
+    z-index: 1;
+    padding-top: 100px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.eventPopupContent {
+    position: relative;
+    background-color: #0d4671;
+    margin: auto;
+    padding: 0;
+    border: 2px solid black;
+    width: 50%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    -webkit-animation-name: animatetop;
+    -webkit-animation-duration: 0.4s;
+    animation-name: animatetop;
+    animation-duration: 0.4s
+}
+
+.fieldDiv {
+    background-color: lightgray;
+}
+
+.personDiv {
+    display: flex;
+    height: 30px;
+    margin-bottom: 5px;
+}
+
+.areaDiv {
+    display: flex;
+    height: 30px;
+    margin-bottom: 5px;
+}
+
+.insideOutsideDiv {
+    display: flex;
+    height: 30px;
+    padding-bottom: 10px;
+}
+
+.eventP {
+    width: 150px;
+}
+
+.stateDiv {
+    display: flex;
+    margin-bottom: 5px;
+    margin-top: 5px;
+    height: 35px;
+}
+
+.eventButton {
+    max-height: 40px !important;
+    margin-top: 35px;
+    margin-right: 10px !important;
+    font-weight: bold;
+}
+
+.allowedText {
+    color: green;
+}
+
+.notAllowedText,
+.failed {
+    color: red;
+    font-weight: bold;
+}
+
+.calculateButton {
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.doneButton {
+    padding: 5px 5px 5px 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    width: 80px;
+    font-weight: bold;
+}
+
+.doneButtonDiv {
+    text-align: center;
+}
+
+.homes,
+.closed {
+    font-weight: bold;
+}
+
+
+/* Responsive layout - when the screen is less than 700px wide, make the two columns stack on top of each other instead of next to each other */
+
+@media screen and (max-width: 700px) {
+    body {
+        width: 100%;
+    }
+}

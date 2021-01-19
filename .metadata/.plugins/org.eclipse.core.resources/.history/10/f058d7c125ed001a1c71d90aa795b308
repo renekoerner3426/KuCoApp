@@ -1,0 +1,49 @@
+package com.vw.fakultaet73.VerordnungenImportService.VerordnungenImportService.entitites;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+/**
+ * RegulationEntity
+ */
+@Entity
+@Data
+@NoArgsConstructor
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
+@EntityListeners({AuditingEntityListener.class})
+public class DecreeEntity {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+	private long id;
+
+	@ManyToOne(fetch = FetchType.EAGER,cascade = {CascadeType.ALL})
+    @JoinColumn(name = "stateEntity_id", referencedColumnName = "id")
+    // @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private StateEntity state;
+    private String description;
+    private String regulation;
+
+    public DecreeEntity(StateEntity state, String description, String regulation){
+        this.state = state;
+        this.description = description;
+        this.regulation = regulation;
+    }
+}

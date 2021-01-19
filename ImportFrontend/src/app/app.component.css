@@ -1,0 +1,49 @@
+/* Header/logo Title */
+
+.header {
+    padding: 10px;
+    text-align: center;
+    background: #9c1010;
+    color: white;
+}
+
+.loginlink {
+    color: white;
+    text-decoration: none;
+}
+
+
+/* Style the body */
+
+body {
+    font-family: Arial;
+    margin: 0;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    background: #d9d9d9;
+    align-content: center;
+    justify-content: center;
+}
+
+p {
+    padding-bottom: 10px;
+}
+
+
+/* Footer */
+
+footer {
+    padding: 20px;
+    text-align: center;
+    background: #333;
+}
+
+
+/* Responsive layout - when the screen is less than 700px wide, make the two columns stack on top of each other instead of next to each other */
+
+@media screen and (max-width: 700px) {
+    body {
+        width: 100%;
+    }
+}

@@ -1,0 +1,5 @@
+package com.vw.fakultaet73.VerordnungenImportService.services;
+
+public class StateEntityService {
+
+}

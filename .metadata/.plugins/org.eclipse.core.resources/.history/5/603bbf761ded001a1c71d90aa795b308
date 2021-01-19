@@ -1,0 +1,7 @@
+package com.vw.fakultaet73.VerordnungenImportService.repositoeries;
+
+import org.springframework.data.repository.CrudRepository;
+import com.vw.fakultaet73.VerordnungenImportService.VerordnungenImportService.entitites.DecreeEntity;
+
+public interface DecreeEntityRepository extends CrudRepository<DecreeEntity, Long> {
+}

@@ -1,0 +1,49 @@
+package com.vw.fakultaet73.VerordnungenImportService.VerordnungenImportService.entitites;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+/**
+ * RegulationEntity
+ */
+@Entity
+@Data
+@NoArgsConstructor
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,property = "id")
+@EntityListeners({AuditingEntityListener.class})
+public class DecreeEntity {
+
+  
+
+//	@ManyToOne(fetch = FetchType.EAGER,cascade = {CascadeType.ALL})
+
+    // @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @Column
+    private String state;
+    @Column
+    private String description;
+    @Column
+    private String regulation;
+
+    public DecreeEntity(String state, String description, String regulation){
+        this.state = state;
+        this.description = description;
+        this.regulation = regulation;
+    }
+}

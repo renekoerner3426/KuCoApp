@@ -1,0 +1,16 @@
+package com.vw.fakultaet73.VerordnungenDataService.VerordnungenDataService;
+
+import javax.persistence.Column;
+
+public class Decree {
+	private String state;
+	private String description;
+    private String regulation;
+    
+    public Decree(String state, String description, String regulation) {
+		this.state = state;
+		this.description = description;
+		this.regulation = regulation;
+	}
+    
+}

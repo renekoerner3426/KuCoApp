@@ -1,0 +1,28 @@
+package com.vw.fakultaet73.VerordnungenDataService.VerordnungenDataService;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.util.ArrayList;
+import java.util.List;
+
+public class CSVReader {
+	
+	public CSVReader() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	public void read() {
+		List<List<String>> records = new ArrayList<>();
+		try (BufferedReader br = new BufferedReader(new FileReader("book.csv"))) {
+		    String line;
+		    while ((line = br.readLine()) != null) {
+		        String[] values = line.split(COMMA_DELIMITER);
+		        records.add(Arrays.asList(values));
+		    }
+		}
+	}
+}
+	
+	
+	   
+

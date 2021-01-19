@@ -1,0 +1,29 @@
+package com.vw.fakultaet73.VerordnungenImportService.VerordnungenImportService.entitites;
+
+import javax.persistence.Entity;
+
+import lombok.Data;
+
+@Entity
+@Data
+@NoArgsConstructor
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+public class StateEntity {
+
+        @Id
+        @GeneratedValue(strategy = GenerationType.AUTO)
+        private long id;
+
+        private String name;
+
+        @NonNull
+        private String roles = "STATE";
+
+        @OneToMany(mappedBy = "stateEntity", cascade = { CascadeType.PERSIST }, fetch = FetchType.LAZY)
+        @JsonIgnore
+        private Set<DecreeEntity> regulations = new HashSet<>();
+
+        public StateEntity (final String name) {
+            this.name = name;
+        }
+}

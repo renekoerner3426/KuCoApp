@@ -1,0 +1,13 @@
+package com.vw.fakultaet73.VerordnungenDataService.VerordnungenDataService;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class VerordnungenDataServiceApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(VerordnungenDataServiceApplication.class, args);
+	}
+
+}

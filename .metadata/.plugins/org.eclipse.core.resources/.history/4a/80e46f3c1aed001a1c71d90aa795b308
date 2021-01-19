@@ -1,0 +1,14 @@
+package com.vw.fakultaet73.VerordnungenImportService.services;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.vw.fakultaet73.VerordnungenImportService.VerordnungenImportService.entitites.StateEntity;
+import com.vw.fakultaet73.VerordnungenImportService.repositoeries.StateEntityRepository;
+
+public class StateEntityService {
+
+	@Autowired
+	StateEntityRepository stateRepository;
+	
+	
+}

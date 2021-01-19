@@ -1,0 +1,48 @@
+package com.vw.fakultaet73.VerordnungenDataService.VerordnungenDataService;
+
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
+
+public class CSVReader {
+	
+	public CSVReader() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	public List<List<String>> read() {
+		List<List<String>> records = new ArrayList<>();
+		try (BufferedReader br = new BufferedReader(new FileReader("src/main/java/com/vw/fakultaet73/VerordnungenDataService/VerordnungenDataService/data.csv"))) {
+		    String line;
+		    System.out.println("sdfsd");
+		    try {
+				while ((line = br.readLine()) != null) {
+				    String[] values = line.split(",");
+				    for (String string : values) {
+						System.out.println(string);
+					}
+				    records.add(Arrays.asList(values));
+				}
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} catch (FileNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		return records;
+	}
+}
+	
+	
+	   
+

@@ -1,0 +1,30 @@
+package com.vw.fakultaet73.VerordnungenImportService.VerordnungenImportService.entitites;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+/**
+ * RegulationEntity
+ */
+@Entity
+@Data
+@NoArgsConstructor
+public class DecreeEntity {
+
+	@Id
+    @Column
+    private String state;
+    @Column
+    private String description;
+    @Column
+    private String regulation;
+
+    public DecreeEntity(String state, String description, String regulation){
+        this.state = state;
+        this.description = description;
+        this.regulation = regulation;
+    }
+}
