@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: verordnungen-import-service
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: verordnungen-import-service
+  template:
+    metadata:
+      labels:
+        app: verordnungen-import-service
+    spec:
+      containers:
+        - name: verordnungen-import-service
+          image: f73-g2.cloudogu.net/achilles/verordnungen-import
+          ports:
+            - name: http
+              containerPort: 8080
+          env:
+            - name: MONGO_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: corona-secret
+                  key: username
+            - name: MONGO_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: corona-secret
+                  key: password
+            - name: MONGO_DATABASE
+              valueFrom:
+                secretKeyRef:
+                  name: corona-secret
+                  key: database
+            - name: MONGO_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: corona-secret
+                  key: host
+      imagePullSecrets:
+        - name: regcred
