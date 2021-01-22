@@ -16,10 +16,10 @@ spec:
     spec:
       containers:
         - name: verordnungen-import-service
-          image: f73-g2.cloudogu.net/achilles/verordnungen-import
+          image: f73-g2.cloudogu.net/achilles/verordnungen-import-service
           ports:
             - name: http
-              containerPort: 8080
+              containerPort: 8081
           env:
             - name: MONGO_USERNAME
               valueFrom:
@@ -41,5 +41,24 @@ spec:
                 secretKeyRef:
                   name: corona-secret
                   key: host
+            - name: DATA_SERVICE_IP
+              value: 10.103.249.73
       imagePullSecrets:
         - name: regcred
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: verordnungen-import-service
+  namespace: default
+  labels:
+    app: verordnungen-import-service
+spec:
+  selector:
+    app: verordnungen-import-service
+  type: LoadBalancer
+  ports:
+    - protocol: TCP
+      name: http
+      port: 8081
+      targetPort: 8081

@@ -37,8 +37,8 @@ public class ReceiveData {
 	private ExportService exportService;
 	
 	private LastChangedStorage lastChangedStorage = new LastChangedStorage();
-	
-	private final String GET_URL = "http://dataservice:8080/decrees";
+	private String dataServiceEnvVar = System.getenv("DATA_SERVICE_IP");
+	private final String GET_URL = "http://" + dataServiceEnvVar + ":8080/decrees";
 	
 	@CrossOrigin("*")
 	@GetMapping("/maches/{state}")

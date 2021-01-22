@@ -26,9 +26,9 @@ export class DecreeWindowComponent implements OnInit {
   constructor(private httpClient: HttpClient) { }
 
   title = 'VerordnungenFrontend';
-  states = ["Baden-Württemberg", "Bayern", "Berlin","Brandenburg", 
+  states = ["Baden-Württemberg", "Bayern", "Berlin","Brandenburg",
 "Bremen", "Hamburg", "Hessen", "Mecklenburg-Vorpommern",
-"Niedersachsen", "Nordrhein-Westfalen", "Rheinland-Pfalz", "Sarland", 
+"Niedersachsen", "Nordrhein-Westfalen", "Rheinland-Pfalz", "Sarland",
 "Sachsen", "Sachsen-Anhalt", "Schleswig-Holstein", "Thüringen"];
 
   decrees: DecreeEntity[] = [];
@@ -80,14 +80,14 @@ export class DecreeWindowComponent implements OnInit {
     this.updateDecreeList();
     this.selectedDecreesByStateFiltered = this.decrees;
   }
-  
+
   public searchByState() {
     this.allStatesVisible = false;
     if(this.selectedState.length > 0) {
       this.selectedDecreesByState = this.decrees.filter(decreeEntry => decreeEntry.state === this.selectedState);
     } else {
       this.selectedDecreesByState = this.decrees;
-    }   
+    }
     this.selectedDecreesByStateFiltered = this.selectedDecreesByState;
   }
 
@@ -101,7 +101,7 @@ export class DecreeWindowComponent implements OnInit {
   }
 
   public updateDecreeList() {
-     this.httpClient.get<DecreeEntity[]>(`http://localhost:8082/decrees`).subscribe(({
+     this.httpClient.get<DecreeEntity[]>(`http://35.193.63.72:8082/decrees`).subscribe(({
       error: error => {
         this.databaseResponse = true;
         console.error('updateDecreeList() - could not import from database', error)},
@@ -129,41 +129,41 @@ export class DecreeWindowComponent implements OnInit {
   public calculate() {
     this.decreesForStateEvent = this.decrees.filter(decree => decree.state === this.selectedEventState);
     switch(this.isOutside) {
-      
+
       case true: {
 
-        this.decreesForStateEvent.forEach(decree => {    
+        this.decreesForStateEvent.forEach(decree => {
 
            if(!(decree.description.search(this.maxPersonsOutsideString) == -1)) {
               this.correctPeople = this.getNumber(decree.description, this.maxPersonsOutsideString ,this.persons);
 
           } else if (!(decree.description.search(this.maxHomesOutsideString) == -1)) {
             this.maxHomesString = decree.description;
-    
+
           }   else if (!(decree.description.search(this.maxPersonsPerAreaOutsideString) == -1)) {
             this.correctPeoplePerArea = !this.getNumber(decree.description, this.maxPersonsPerAreaOutsideString, (this.area/this.persons));
 
           } else if (!(decree.description.search(this.closedFacilitiesString) == -1)) {
             this.closedFacilities = decree.description;
-    
+
           }
-        });          
+        });
           break;
       }
 
       case false: {
 
-        this.decreesForStateEvent.forEach(decree => {    
+        this.decreesForStateEvent.forEach(decree => {
 
           if(!(decree.description.search(this.maxPersonsInsideString) == -1)) {
             this.correctPeople = this.getNumber(decree.description, this.maxPersonsInsideString, this.persons);
-    
-    
+
+
           }  else if (!(decree.description.search(this.maxHomesInsideString) == -1)) {
             this.maxHomesString = decree.description;
-    
+
           }   else if (!(decree.description.search(this.maxPersonsPerAreaInsideString) == -1)) {
-            this.correctPeoplePerArea = !this.getNumber(decree.description, this.maxPersonsPerAreaInsideString, (this.area/this.persons));   
+            this.correctPeoplePerArea = !this.getNumber(decree.description, this.maxPersonsPerAreaInsideString, (this.area/this.persons));
 
             }else if (!(decree.description.search(this.closedFacilitiesString) == -1)) {
               this.closedFacilities = decree.description;

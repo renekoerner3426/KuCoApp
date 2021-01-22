@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: verordnungen-data-service
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: verordnungen-data-service
+  template:
+    metadata:
+      labels:
+        app: verordnungen-data-service
+    spec:
+      containers:
+        - name: verordnungen-data-service
+          image: f73-g2.cloudogu.net/achilles/verordnungen-data
+          ports:
+            - name: http
+              containerPort: 8080
+      imagePullSecrets:
+        - name: regcred
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: verordnungen-data-service
+  namespace: default
+  labels:
+    app: verordnungen-data-service
+spec:
+  selector:
+    app: verordnungen-data-service
+  type: ClusterIP
+  ports:
+    - protocol: TCP
+      name: http
+      port: 8080
+      targetPort: 8080

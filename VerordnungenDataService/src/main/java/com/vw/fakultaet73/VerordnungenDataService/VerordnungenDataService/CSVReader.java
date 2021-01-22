@@ -17,7 +17,7 @@ public class CSVReader {
 
 	public List<DecreeEntity> getDecreesList() {
 		List<DecreeEntity> decreeList = new ArrayList<>();
-		List<String[]> decreesListAsString = new ArrayList<>();
+		/* List<String[]> decreesListAsString = new ArrayList<>();
 		decreesListAsString = readFromCSV();
 		for (String[] decree : decreesListAsString) {
 			System.out.println(decree);
@@ -26,7 +26,8 @@ public class CSVReader {
 			} else {
 				decreeList.add(new DecreeEntity(decree[1].trim(), decree[0].trim(), decree[2].trim()));
 			}
-		}
+        } */
+        decreeList.add(new DecreeEntity("Bayern", "nüscht", "penis waschen"));
 		return decreeList;
 	}
 

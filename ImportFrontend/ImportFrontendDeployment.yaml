@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: import-frontend
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: import-frontend
+  template:
+    metadata:
+      labels:
+        app: import-frontend
+    spec:
+      containers:
+        - name: import-frontend
+          image: f73-g2.cloudogu.net/achilles/import-frontend
+          ports:
+            - name: http
+              containerPort: 80
+          env:
+            - name: IMPORT-SERVICE-CLUSTERIP
+              value: 34.69.127.37
+      imagePullSecrets:
+        - name: regcred
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: import-frontend
+  namespace: default
+  labels:
+    app: import-frontend
+spec:
+  selector:
+    app: import-frontend
+  type: LoadBalancer
+  ports:
+    - protocol: TCP
+      name: http
+      port: 80
+      targetPort: 80

@@ -25,4 +25,4 @@ COPY --from=build ${DEPENDENCY}/BOOT-INF/lib /app/lib
 COPY --from=build ${DEPENDENCY}/META-INF /app/META-INF
 COPY --from=build ${DEPENDENCY}/BOOT-INF/classes /app
 
-ENTRYPOINT [ "java", "-cp" , "app:app/lib/*" , "com.vw.fakultaet73.VerordnungenBackend.VerordnungenBackend.VerordnungenBackendApplication" ]
+ENTRYPOINT [ "java", "-cp" , "app:app/lib/*" , "com.vw.fakultaet73.VerordnungenDataService.VerordnungenDataService.VerordnungenDataServiceApplication" ]

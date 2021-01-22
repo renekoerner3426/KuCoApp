@@ -8,7 +8,7 @@ package com.vw.fakultaet73.VerordnungenDataService.VerordnungenDataService;
 public class DecreeEntity {
 
 
-    private Long id = 0L;
+    /* private Long id = 0L; */
     private String state;
     private String description;
     private String regulations;

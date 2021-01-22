@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: verordnungen-backend
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: verordnungen-backend
+  template:
+    metadata:
+      labels:
+        app: verordnungen-backend
+    spec:
+      containers:
+        - name: verordnungen-backend
+          image: f73-g2.cloudogu.net/achilles/verordnungen-backend
+          ports:
+            - name: http
+              containerPort: 8082
+          env:
+            - name: MONGO_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: corona-secret
+                  key: username
+            - name: MONGO_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: corona-secret
+                  key: password
+            - name: MONGO_DATABASE
+              valueFrom:
+                secretKeyRef:
+                  name: corona-secret
+                  key: database
+            - name: MONGO_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: corona-secret
+                  key: host
+      imagePullSecrets:
+        - name: regcred
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: verordnungen-backend
+  namespace: default
+  labels:
+    app: verordnungen-backend
+spec:
+  selector:
+    app: verordnungen-backend
+  type: LoadBalancer
+  ports:
+    - protocol: TCP
+      name: http
+      port: 8082
+      targetPort: 8082

@@ -9,14 +9,14 @@ import org.springframework.data.mongodb.core.mapping.Document;
  */
 @Document
 public class DecreeEntity {
-		@Id
-	    private Long id;
+		/* @Id
+	    private Long id; */
 	    private String state;
 	    private String description;
 	    private String regulations;
 
-	    public DecreeEntity(Long id, String state, String description, String regulation){
-	    	this.id = id;
+	    public DecreeEntity(/* Long id, */ String state, String description, String regulation){
+	    	/* this.id = id; */
 	        this.state = state;
 	        this.description = description;
 	        this.regulations = regulation;
@@ -25,13 +25,13 @@ public class DecreeEntity {
 	    public  DecreeEntity() {
 	    }
 
-		public Long getId() {
+		/* public Long getId() {
 			return id;
 		}
 
 		public void setId(Long id) {
 			this.id = id;
-		}
+		} */
 
 		public String getState() {
 			return state;

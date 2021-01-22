@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Subject } from 'rxjs';
 
@@ -21,11 +21,15 @@ interface LastChanged {
 })
 export class OverviewComponent implements OnInit {
 
-  deleteUrl = "http://localhost:8081/deleteDecree";
-  editUrl = "http://localhost:8081/editDecree";
-  decreeUrl = "http://localhost:8081/newDecree";
-  importUrl = "http://localhost:8081/maches";
-  getDecreesUrl = "http://localhost:8081/decrees";
+
+  constructor(@Inject('IMPORT-SERVICE-CLUSTERIP') private basicUrl: string, private http: HttpClient) {
+  }
+
+  deleteUrl = "http://" + this.basicUrl + ":8081/deleteDecree";
+  editUrl = "http://" + this.basicUrl + ":8081/editDecree";
+  decreeUrl = "http://" + this.basicUrl + ":8081/newDecree";
+  importUrl = "http://" + this.basicUrl + ":8081/maches";
+  getDecreesUrl = "http://" + this.basicUrl + ":8081/decrees";
 
   //Filterfunction
   allStatesVisible: boolean = true;
@@ -69,12 +73,12 @@ export class OverviewComponent implements OnInit {
   decreeCreated: number;
   lastUploadDate: string = "nie";
 
-  states = ["Baden-Württemberg", "Bayern", "Berlin","Brandenburg", 
+  states = ["Baden-Württemberg", "Bayern", "Berlin","Brandenburg",
 "Bremen", "Hamburg", "Hessen", "Mecklenburg-Vorpommern",
-"Niedersachsen", "Nordrhein-Westfalen", "Rheinland-Pfalz", "Saarland", 
+"Niedersachsen", "Nordrhein-Westfalen", "Rheinland-Pfalz", "Saarland",
 "Sachsen", "Sachsen-Anhalt", "Schleswig-Holstein", "Thüringen"];
 
-  constructor(private http: HttpClient) { }
+
 
   ngOnInit(): void {
     this.updateDecreeList();
@@ -84,7 +88,7 @@ export class OverviewComponent implements OnInit {
   public updateDecreeList() {
     this.getLastChange();
     this.setMessageBooleansToFalse();
-     this.http.get<DecreeEntity[]>(`http://localhost:8081/decrees`).subscribe(({
+     this.http.get<DecreeEntity[]>("http://" + this.basicUrl + ":8081/decrees").subscribe(({
       error: error => console.error('updateDecreeList() - could not use ImportService!', error),
       next: data => data.forEach(element => {
         this.decrees.push(element);
@@ -113,23 +117,23 @@ export class OverviewComponent implements OnInit {
          this.decrees.splice(this.decrees.indexOf(decree), 1);
           this.decrees = this.decrees;
           this.searchByState(this.selectedState);
-         console.error('addDecree() - could not use ImportService!', error)}}); 
+         console.error('addDecree() - could not use ImportService!', error)}});
          this.decrees.push(decree);
-      }   
+      }
     this.decrees = this.decrees;
     this.descriptionDecree = "";
-     this.regulationsDecree = "";     
+     this.regulationsDecree = "";
      this.searchByState(this.selectedState);
     } else {
       this.missingValues = true;
     }
-    
+
   }
 
   basicImport(){
     this.getLastChange();
     this.importPopupVisible = false;
-     this.http.get<DecreeEntity[]>(`http://localhost:8081/maches`).subscribe(({
+     this.http.get<DecreeEntity[]>("http://" + this.basicUrl + ":8081/maches").subscribe(({
       error: error => console.error('basicImport() - could not use ImportService!', error)}));
   }
 
@@ -138,7 +142,7 @@ export class OverviewComponent implements OnInit {
       this.showLastChange = false;
     } else {
       this.showLastChange = true;
-        this.http.get<LastChanged>(`http://localhost:8081/change/` + '/' + this.selectedState).subscribe(({
+        this.http.get<LastChanged>("http://" + this.basicUrl + ":8081/change/" + "/" + this.selectedState).subscribe(({
           error: error => console.error('getLastChanged() - could not use ImportService!', error),
           next: data => this.lastUploadDate = data.lastChange
     }));
@@ -152,9 +156,9 @@ export class OverviewComponent implements OnInit {
     if(!this.selectedUploadState) {
       this.basicImport();
     } else {
-      this.http.get<DecreeEntity[]>(`http://localhost:8081/maches` + '/' + this.selectedUploadState).subscribe(({
+      this.http.get<DecreeEntity[]>("http://" + this.basicUrl + ":8081/maches" + "/" + this.selectedUploadState).subscribe(({
         error: error => console.error('basicImport() - could not use ImportService!', error)}));
-    }    
+    }
   }
 
   public searchByState(state: string) {
@@ -173,7 +177,7 @@ export class OverviewComponent implements OnInit {
 
   }
 
-  public updateDecree(){ 
+  public updateDecree(){
     this.setMessageBooleansToFalse();
     this.getLastChange();
     let tempDescription = this.selectedDecree.description;
@@ -201,7 +205,7 @@ export class OverviewComponent implements OnInit {
         this.decrees.push(tempDecree);
         console.error('deleteDecree() - could not use ImportService!', error)
     }});
-    this.searchByState(this.selectedState);    
+    this.searchByState(this.selectedState);
   }
 
   public openDecreeEditor(decree: DecreeEntity){
